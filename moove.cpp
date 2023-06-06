@@ -26,9 +26,9 @@ void scene0(void){//Начало
     fon0();
     gnomik(GNOM);
     cubdrug(CUB);
-    GNOM.pos.x+=0.5/5000*clock();
+    GNOM.pos.x+=0.08/5000*clock();
     if (GNOM.pos.x>0){
-        CUB.pos.x+=0.5/5000*clock();
+        CUB.pos.x+=0.08/5000*clock();
         }
     if (GNOM.pos.x>3)
         sc=1;
@@ -37,14 +37,14 @@ void scene0(void){//Начало
 
 void scene1(void){//Путь через пустыню
     if (sc==1){
-        anim1=700;
+        anim1=2500;
         fon1();
         CUB={{-3,-1.2},0};
         GNOM={{-3,-1},0};
         gnomik(GNOM1);
         cubdrug(CUB1);
-        GNOM1.pos.x+=0.2/5000*(clock()-anim1);
-        CUB1.pos.x+=0.2/5000*(clock()-anim1);
+        GNOM1.pos.x+=0.08/5000*(clock()-anim1);
+        CUB1.pos.x+=0.08/5000*(clock()-anim1);
         if (GNOM1.pos.x>3)
             sc=2;
     }
@@ -52,22 +52,23 @@ void scene1(void){//Путь через пустыню
 
 void scene2(void){//Лифт
     if (sc==2){
-        anim1=2300;
+        anim1=5000;
         fon2();
         CUB1={{0,-4.2},0};
         GNOM1={{0,-4},0};
         lift(LIFT);
         gnomik(GNOM);
         cubdrug(CUB);
-        GNOM.pos.x+=0.1/5000*(clock()-anim1);
-        CUB.pos.x+=0.1/5000*(clock()-anim1);
+        GNOM.pos.x+=0.025/5000*(clock()-anim1);
+        CUB.pos.x+=0.025/5000*(clock()-anim1);
         if (GNOM.pos.x>0){
             GNOM.pos.x=0;
             CUB.pos.x=0;
-            if(clock()>5000){
-              GNOM.pos.y+=0.3/5000*(clock()-anim1);
-              CUB.pos.y+=0.3/5000*(clock()-anim1);
-              LIFT.pos.y+=0.2/5000*(clock()-anim1);
+            if(clock()>8000){
+              anim1=8000;
+              GNOM.pos.y+=0.03/5000*(clock()-anim1);
+              CUB.pos.y+=0.03/5000*(clock()-anim1);
+              LIFT.pos.y+=0.02/5000*(clock()-anim1);
             }
               }
         if (GNOM.pos.y>3.7)
@@ -77,7 +78,7 @@ void scene2(void){//Лифт
 
 void scene3(void){//Подъём на лифте
     if (sc==3){
-        anim1=3300;
+        anim1=13000;
         fon3();
         LIFT={{0,3.2},0};
         CUB={{0,3.3},0};
@@ -85,51 +86,53 @@ void scene3(void){//Подъём на лифте
         lift(LIFT1);
         gnomik(GNOM1);
         cubdrug(CUB1);
-        GNOM1.pos.y+=0.2*0.3/5000*(clock()-anim1);
-        CUB1.pos.y+=0.2*0.3/5000*(clock()-anim1);
-        LIFT1.pos.y+=0.2*0.2/5000*(clock()-anim1);
+        GNOM1.pos.y+=0.1*0.3/5000*(clock()-anim1);
+        CUB1.pos.y+=0.1*0.3/5000*(clock()-anim1);
+        LIFT1.pos.y+=0.1*0.2/5000*(clock()-anim1);
         if (GNOM1.pos.y>1){
+           anim1=18000;
            GNOM1.pos.y=1;
            CUB1.pos.y=0.8;
            LIFT1.pos.y=0.84;
-           bomb(Pol{0,2.5+0.0005*(clock()-anim1)});
-           if (clock()-anim1>5000){
-               LIFT1.angle+=0.005*(clock()-anim1-5000);
-               GNOM1.angle+=0.005*(clock()-anim1-5000);
-               CUB1.angle+=0.005*(clock()-anim1-5000);
-               GNOM1.pos.y-=1.5/5000*(clock()-anim1-5000);
-               CUB1.pos.y-=1.5/5000*(clock()-anim1-5000);
-               LIFT1.pos.y-=1.5/5000*(clock()-anim1-5000);
-               }
-           }
-        if(clock()-anim1>12000)
-            sc=4;
+           bomb(Pol{0,3+0.005*(clock()-anim1)});
+           if (clock()-anim1>2000){
+               anim1=20000;
+               LIFT1.angle+=0.005*(clock()-anim1);
+               GNOM1.angle+=0.005*(clock()-anim1);
+               CUB1.angle+=0.005*(clock()-anim1);
+               GNOM1.pos.y-=0.8/5000*(clock()-anim1);
+               CUB1.pos.y-=0.8/5000*(clock()-anim1);
+               LIFT1.pos.y-=0.6/5000*(clock()-anim1);
+               if(clock()-anim1>9000)
+                  sc=4;
         }
+        }
+    }
 }
 
 void scene4(void){//Падение
     if (sc==4){
-        anim1=13000;
+        anim1=29000;
         darkness();
         CUB1={{0,7},0};
         GNOM1={{0,7},0};
         LIFT1={{0,5},0};
         nadpis(NADPIS);
-        if (clock()-anim1>1000){
-            anim1=14000;
-            NADPIS.pos.y-=0.006/5000*(clock()-anim1);
-            NADPIS.angle+=0.0025*(clock()-anim1);
-            if (clock()>17000){
-                anim1=19700;
+        if (clock()-anim1>3000){
+            anim1=32000;
+            NADPIS.pos.y-=0.06/5000*(clock()-anim1);
+            NADPIS.angle+=0.025*(clock()-anim1);
+            if (clock()>35000){
+                anim1=35000;
                 lift(LIFT);
                 gnomik(GNOM);
                 cubdrug(CUB);
-                LIFT.angle+=0.5*(clock()-anim1);
-                GNOM.angle+=0.5*(clock()-anim1);
-                CUB.angle+=0.5*(clock()-anim1);
-                GNOM.pos.y-=1.2/5000*(clock()-anim1);
-                CUB.pos.y-=1.2/5000*(clock()-anim1);
-                LIFT.pos.y-=1.2/5000*(clock()-anim1);
+                LIFT.angle+=5*(clock()-anim1);
+                GNOM.angle+=5*(clock()-anim1);
+                CUB.angle+=5*(clock()-anim1);
+                GNOM.pos.y-=0.06/5000*(clock()-anim1);
+                CUB.pos.y-=0.06/5000*(clock()-anim1);
+                LIFT.pos.y-=0.06/5000*(clock()-anim1);
                 }
            }
         if(GNOM.pos.y<-5)
@@ -140,7 +143,7 @@ void scene4(void){//Падение
 
 void scene5(void){//Падение на землю
     if (sc==5){
-        anim1=21000;
+        anim1=40000;
         ad1();
         GNOM={{3,-0.4},0};
         NADPIS={{0,-4},0};
@@ -150,9 +153,9 @@ void scene5(void){//Падение на землю
         LIFT1.angle+=0.1*(clock()-anim1);
         GNOM1.angle+=0.1*(clock()-anim1);
         CUB1.angle+=0.1*(clock()-anim1);
-        GNOM1.pos.y-=1.5/5000*(clock()-anim1);
-        CUB1.pos.y-=1.5/5000*(clock()-anim1);
-        LIFT1.pos.y-=1.5/5000*(clock()-anim1);
+        GNOM1.pos.y-=0.5/5000*(clock()-anim1);
+        CUB1.pos.y-=0.5/5000*(clock()-anim1);
+        LIFT1.pos.y-=0.5/5000*(clock()-anim1);
         if (LIFT1.pos.y<0.3){
             LIFT1.pos.y=0.3;
             LIFT1.angle=47;
@@ -166,15 +169,15 @@ void scene5(void){//Падение на землю
             CUB1.angle=270;
 
         }
-        if ((clock()-anim1>3000) && (clock()-anim1<6000)){
+        if ((clock()-anim1>4000) && (clock()-anim1<7500)){
             spit();
             CUB1.pos.x=7;
         }
-        if (clock()-anim1>8000){
-            anim1=27000;
+        if (clock()-anim1>9000){
+            anim1=49000;
             GNOM1.angle=0;
             if (clock()-anim1>2000)
-                GNOM1.pos.x-=1.5/5000*(clock()-anim1-2000);
+                GNOM1.pos.x-=0.5/5000*(clock()-anim1-2000);
         }
         if (GNOM1.pos.x<-3)
             sc=6;
@@ -184,25 +187,25 @@ void scene5(void){//Падение на землю
 
 void scene6(void){//Поиск кубика
     if (sc==6){
-        anim1=29000;
+        anim1=53000;
         ad2();
         CUB1={{0,-0.4},0};
         GNOM1={{3,-0.4},0};
         gnomik(GNOM);
-        GNOM.pos.x-=0.05/5000*(clock()-anim1);
+        GNOM.pos.x-=0.06/5000*(clock()-anim1);
         if (GNOM.pos.x<-3){
                 GNOM.pos.x+=7;
                 schet+=1;
                 anim1+=1000;
         }
-        if (schet>3)
+        if (schet>2)
             sc=7;
     }
 }
 
 void scene7(void){//Встреча с демоном
     if (sc==7){
-        anim1=39000;
+        anim1=60000;
         ad1();
         schet=0;
         CUB={{-4,-0.4},0};
@@ -217,15 +220,14 @@ void scene7(void){//Встреча с демоном
         }
         if(DEMON1.y<0.3)
             ded();
-        if(clock()>47000)
+        if(clock()>69000)
                 sc=8;
-
 }
 }
 
 void scene8(void){//Побег
     if (sc==8){
-        anim1=47000;
+        anim1=69000;
         ad2();
         CUB1={{-4,-0.4},0};
         GNOM1={{-4,-0.4},0};
@@ -243,14 +245,14 @@ void scene8(void){//Побег
             DEMON.x-=8;
             schet+=1;
         }
-        if(schet>3)
+        if(schet>2)
             sc=9;
     }
 }
 
 void scene9(void){//Возвращение к лифту
     if(sc==9){
-        anim1=48000;
+        anim1=72000;
         ad1();
         CUB={{0,-3.2},0};
         GNOM={{0,-3.5},0};
@@ -266,14 +268,14 @@ void scene9(void){//Возвращение к лифту
             GNOM1.pos.x=0;
             CUB1.pos.x=0;
         }
-        if (clock()>54000)
+        if (clock()>77000)
             sc=10;
     }
 }
 
 void scene10(void){//Финал
     if (sc==10){
-        anim1=54000;
+        anim1=77000;
         darkness();
         lift(LIFT);
         gnomik(GNOM);
@@ -287,7 +289,7 @@ void scene10(void){//Финал
         CUB.pos.y+=0.8/5000*(clock()-anim1);
         LIFT.pos.y+=0.8/5000*(clock()-anim1);
         if (clock()-anim1>3000){
-            anim1=56000;
+            anim1=80000;
             NADPIS.pos.y+=0.35/5000*(clock()-anim1);
             NADPIS.angle-=0.5*(clock()-anim1);
             if (NADPIS.pos.y>0){
@@ -295,11 +297,14 @@ void scene10(void){//Финал
                 NADPIS.angle=0;
             }
         }
-        if (clock()>57000){
+        if ((clock()>82000) && (clock()<90000)){
             ZLO.x-=0.01/5000*(clock()-anim1);
             if(ZLO.x<0)
                 ZLO.x=0;
         }
+        if (clock()>89000){
+            hodit();
+      }
+
    }
 }
-
